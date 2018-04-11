@@ -1,0 +1,8 @@
+{
+  "name": "doer_e2e_tests",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "cypress": "^2.1.0"
+  }
+}
