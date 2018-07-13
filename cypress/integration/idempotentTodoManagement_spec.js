@@ -64,9 +64,8 @@ describe('idempotent todo management', () => {
             cy.get('span.list-group-item').should('contain', 'invisible task');
         });
 
-        cy.get('span.list-group-item').each(($listGroupItem) => {
-            $listGroupItem.find('a .glyphicon-remove').click();
-        });
+        cy.contains('visible task').closest('span.list-group-item').find('a .glyphicon-remove').click();
+        cy.contains('invisible task').closest('span.list-group-item').find('a .glyphicon-remove').click();
     });
 
     it('includes completing todos and viewing them from the history page', () => {
