@@ -52,13 +52,13 @@ describe('non idempotent todo management', () => {
 
         cy.get('.tab-pane.active').within(() => {
             cy.get('span.list-group-item').should('have.length', 2);
-            cy.get('span.list-group-item').eq(0).should('contain', 'task to be pushed');
-            cy.get('span.list-group-item').eq(1).should('contain', 'second visible task');
+            cy.get('span.list-group-item').eq(0).should('contain', 'second visible task');
+            cy.get('span.list-group-item').eq(1).should('contain', 'task to be pushed');
         });
 
         cy.get('input[type="text"]').type('first visible task');
         cy.contains('button', 'Do!').click();
-        cy.get('span.list-group-item').eq(0).find('button').click();
+        cy.contains('button', 'Now').click();
         cy.wait(1000);
 
         cy.get('.tab-pane.active').within(() => {
