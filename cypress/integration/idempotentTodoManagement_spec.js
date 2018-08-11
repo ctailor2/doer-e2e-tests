@@ -65,6 +65,7 @@ describe('idempotent todo management', () => {
         });
 
         cy.contains('visible task').closest('span.list-group-item').find('a .glyphicon-remove').click();
+        cy.wait(1000);
         cy.contains('invisible task').closest('span.list-group-item').find('a .glyphicon-remove').click();
     });
 
