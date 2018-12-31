@@ -80,6 +80,46 @@ describe('non idempotent todo management', () => {
         });
     });
 
+    it('includes swapping the first todo from the hidden list with the last todo from the viewable list', () => {
+        cy.get('input[type="text"]').type('first invisible task');
+        cy.contains('button', 'Do!').click();
+        cy.contains('button', 'Later').click();
+        cy.wait(1000);
+        cy.get('input[type="text"]').type('task to be swapped');
+        cy.contains('button', 'Do!').click();
+        cy.contains('button', 'Now').click();
+        cy.wait(1000);
+        cy.get('input[type="text"]').type('second visible task');
+        cy.contains('button', 'Do!').click();
+        cy.contains('button', 'Now').click();
+        cy.wait(1000);
+
+        cy.get('.tab-pane.active').within(() => {
+            cy.get('span.list-group-item').should('have.length', 2);
+            cy.get('span.list-group-item').eq(0).should('contain', 'second visible task');
+            cy.get('span.list-group-item').eq(1).should('contain', 'task to be swapped');
+        });
+
+        cy.get('.nav-tabs').contains('a', 'Later').click();
+        cy.get('.modal').contains('button', 'Unlock').click();
+        cy.wait(1000);
+        cy.get('.nav-tabs').contains('a', 'Later').click();
+        cy.wait(1000);
+
+        cy.get('.tab-pane.active').within(() => {
+            cy.get('span.list-group-item').should('have.length', 1);
+            cy.get('span.list-group-item').eq(0).should('contain', 'first invisible task');
+        });
+
+        cy.get('.escalate').click();
+        cy.wait(1000);
+
+        cy.get('.tab-pane.active').within(() => {
+            cy.get('span.list-group-item').should('have.length', 1);
+            cy.get('span.list-group-item').eq(0).should('contain', 'task to be swapped');
+        });
+    });
+
     it('includes moving todos on the hidden list', () => {
         cy.get('input[type="text"]').type('first task');
         cy.contains('button', 'Do!').click();
