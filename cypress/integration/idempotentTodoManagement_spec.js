@@ -23,10 +23,10 @@ describe('idempotent todo management', () => {
         });
 
         cy.get('span.list-group-item').find('button').click();
-        cy.get('span.list-group-item').find('input').type(' has been edited');
+        cy.get('span.list-group-item').find('input').type('edited the ');
         cy.get('span.list-group-item').contains('button', 'Save').click();
         cy.wait(1000);
-        cy.get('span.list-group-item').should('contain', 'added task has been edited');
+        cy.get('span.list-group-item').should('contain', 'edited the added task');
 
         cy.get('span.list-group-item').find('a .glyphicon-remove').click();
         cy.wait(1000);
