@@ -1,4 +1,4 @@
-describe('non idempotent todo management', () => {
+describe('advanced todo management', () => {
     beforeEach(() => {
         cy.visit('/signup');
         let msSinceEpoch = Date.now();
@@ -185,34 +185,6 @@ describe('non idempotent todo management', () => {
             cy.get('span.list-group-item').eq(1).should('contain', 'fourth task');
             cy.get('span.list-group-item').eq(2).should('contain', 'third task');
             cy.get('span.list-group-item').eq(3).should('contain', 'first task');
-        });
-    });
-
-    it('hides the hidden list after its unlock period expires', () => {
-        cy.get('input[type="text"]').type('invisible task');
-        cy.contains('button', 'Do!').click();
-        cy.contains('button', 'Later').click();
-        cy.wait(1000);
-
-        cy.get('.tab-pane.active').within(() => {
-            cy.get('span.list-group-item').should('not.contain', 'invisible task');
-        });
-
-        cy.clock();
-        cy.get('.nav-tabs').contains('a', 'Later').click();
-        cy.get('.modal').contains('button', 'Unlock').click();
-        cy.wait(1000);
-        cy.get('.nav-tabs').contains('a', 'Later').click();
-        cy.wait(1000);
-
-        cy.get('.tab-pane.active').within(() => {
-            cy.get('span.list-group-item').should('contain', 'invisible task');
-        });
-
-        cy.tick(1801000)
-
-        cy.get('.tab-pane.active').within(() => {
-            cy.get('span.list-group-item').should('not.contain', 'invisible task');
         });
     });
 

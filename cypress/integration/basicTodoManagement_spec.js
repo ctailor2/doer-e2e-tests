@@ -1,9 +1,9 @@
-describe('idempotent todo management', () => {
+describe('basic todo management', () => {
     beforeEach(() => {
         cy.visit('/login');
         cy.contains('.form-group', 'Email')
             .find('input')
-            .type('idempotentTodoManagement@e2etest.com');
+            .type('basicTodoManagement@e2etest.com');
         cy.contains('.form-group', 'Password')
             .find('input')
             .type('e2epassword');
