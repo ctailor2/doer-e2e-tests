@@ -3,6 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "devDependencies": {
-    "cypress": "^3.1.5"
+    "cypress": "^4.3.0"
   }
 }
