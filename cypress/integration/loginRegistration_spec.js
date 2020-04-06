@@ -29,7 +29,7 @@ describe('loginRegistration', () => {
         cy.contains('label', 'Email')
             .closest('.form-group')
             .find('input')
-            .type('idempotentTodoManagement@e2etest.com');
+            .type('basicTodoManagement@e2etest.com');
         cy.contains('label', 'Password')
             .closest('.form-group')
             .find('input')
